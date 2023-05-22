@@ -1,0 +1,59 @@
+from tkinter import *
+from tkinter.ttk import Radiobutton
+
+
+window = Tk()
+window.title('Программа для определения оптимального веса')
+window.geometry('600x500') #размер открывающегося окна
+
+
+def bmi():
+    result_bmi = float(weight.get())/(float(height.get())**2)*10000
+    lbl_result.config(text='Ваш ИМТ равен %.2f' % result_bmi)
+
+    if result_bmi <= 16:
+        lbl_mass.config(text='Выраженный дефицит массы тела')
+    elif result_bmi>16 and result_bmi<=18.5:
+        lbl_mass.config(text='Дефицит массы тела')
+    elif result_bmi>18.5 and result_bmi<=25:
+        lbl_mass.config(text='Нормальная масса тела')
+    elif result_bmi>25 and result_bmi<=30:
+        lbl_mass.config(text='Избыточная масса тела (предожирение)')
+    elif result_bmi > 30:
+        lbl_mass.config(text='Ожирение')
+
+
+lbl1 = Label(text='Введите ваш рост:')
+lbl1.place(relx=0.3, rely=0.3)
+height = Entry(window, width=6) #принимаемое значение роста
+height.place(relx=0.5, rely=0.3)
+cm = Label(text='см')
+cm.place(relx=0.566, rely=0.3)
+height.focus()
+
+lbl2 = Label(text='Введите ваш вес:')
+lbl2.place(relx=0.3, rely=0.4)
+weight = Entry(window, width=6) #принимаемое значение веса
+weight.place(relx=0.5, rely=0.4)
+kg = Label(text='кг')
+kg.place(relx=0.566, rely=0.4)
+
+lbl3 = Label(text='Выберите пол:')
+lbl3.place(relx=0.3, rely=0.5)
+select = IntVar()
+male = Radiobutton(window, text='м', value=1, variable=select)
+female = Radiobutton(window, text='ж', value=2, variable=select)
+male.place(relx=0.5, rely=0.48)
+female.place(relx=0.5, rely=0.52)
+
+calculation = Button(window, text='Расчитать ИМТ', command=bmi)
+calculation.place(relx=0.4, rely=0.6)
+
+lbl_result = Label(window, text='') #значение имт
+lbl_result.place(relx=0.37, rely=0.7)
+
+lbl_mass = Label(window, text='') #недост. норма или избыток веса
+lbl_mass.place(relx=0.37, rely=0.75)
+
+
+window.mainloop() 
